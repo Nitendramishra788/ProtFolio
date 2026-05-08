@@ -1,0 +1,429 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+
+body{
+  background-color: black;
+  color: white;
+  overflow-x: hidden;
+  
+} 
+
+.typing-text {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* .RightMain {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* center text */
+
+  /* width: 90%;
+  min-height: 60vh; */
+/* 
+  margin: 2rem auto;
+  padding: 1rem; */
+/* 
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+} */ 
+
+/* Text */
+/* .RightMain h1 {
+  color: white;
+  font-size: 2rem;
+} */
+
+/* 📱 Mobile */
+/* @media (max-width: 768px) {
+  .RightMain h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+} */
+
+
+/* navbar */
+
+/* Logo Responsive */
+.nav-logo {
+  width: 60px;
+  height: auto;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .nav-logo {
+    width: 50px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 576px) {
+  .nav-logo {
+    width: 40px;
+  }
+}
+
+/* Navbar spacing */
+.navbar-nav .nav-link {
+  margin-right: 15px;
+  font-size: 1rem;
+}
+
+/* Mobile menu center */
+@media (max-width: 992px) {
+  .navbar-nav {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .nav-link {
+    padding: 10px 0;
+  }
+}
+
+
+/* rightMain UI css */
+
+
+/* Main Container */
+.RightMain {
+  display: flex;
+  align-items: center;              /* vertical center */
+  justify-content: space-between;   /* left text + right image */
+
+  width: 90%;
+  min-height: 70vh;
+
+  margin: 2rem auto;
+  padding: 1.5rem;
+
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 📱 Tablet */
+@media (max-width: 992px) {
+  .RightMain {
+    flex-direction: column;
+    text-align: center;
+    gap: 2rem;
+  }
+}
+
+/* 📱 Mobile */
+@media (max-width: 576px) {
+  .RightMain {
+    width: 95%;
+    padding: 1rem;
+  }
+}
+
+
+/* Profile Css */
+
+/* Image responsive */
+.profile-img {
+  width: 70%;
+  max-width: 300px;
+  height: auto;
+}
+
+/* Text spacing */
+.hero-title {
+  margin-bottom: 1rem;
+}
+
+.hero-desc {
+  color: #ccc;
+  max-width: 500px;
+  margin: 0 auto 1rem;
+}
+
+/* Buttons */
+.hero-buttons {
+  margin-top: 1rem;
+}
+
+/* 📱 Mobile fix */
+@media (max-width: 992px) {
+  .profile-img {
+    width: 60%;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-desc {
+    margin: 0 auto 1rem;
+    text-align: center;
+  }
+}
+
+
+/* textTyping CSS */
+
+/* Typing Text */
+.typing-text {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #00d4ff;
+  margin-top: 10px;
+}
+
+/* Cursor */
+.cursor {
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50%, 100% { opacity: 1; }
+  25%, 75% { opacity: 0; }
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .typing-text {
+    font-size: 1.2rem;
+  }
+}
+
+/* Footer CSS */
+
+/* Footer Main */
+.footer {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  margin-top: 2rem;
+}
+
+/* Logo */
+.footer-logo {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+/* Text */
+.footer-text {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+/* Headings */
+.footer-heading {
+  color: white;
+  margin-bottom: 10px;
+}
+
+/* Links */
+.footer a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #00d4ff;
+}
+
+/* Bottom */
+.footer-bottom {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+}
+
+/* Project section css */
+
+/* Section spacing */
+.project-section {
+  margin-top: 3rem;
+}
+
+/* Card */
+.project-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  transition: 0.3s;
+}
+
+/* Image responsive */
+.project-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Hover effect */
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Buttons */
+.project-buttons {
+  margin-top: 10px;
+}
+
+/* 📱 Mobile */
+@media (max-width: 768px) {
+  .project-card img {
+    height: 150px;
+  }
+}
+
+
+
+/* about Section */
+
+.about-img {
+  width: 100%;
+  max-width: 500px; 
+  height: auto;       
+  border-radius: 1rem;
+}
+
+
+.aboutText{
+      font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #d1d1d1;
+
+}
+
+
+.HeadText{
+    font-family: "Dancing Script", cursive;
+  font-size: 1.5rem;
+  color: white;
+}
+
+
+
+/* Skills */
+
+/* Timeline container */
+.timeline {
+  height: 320px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* scrolling track */
+.timeline-track {
+  display: flex;
+  flex-direction: column;
+  animation: scrollUp 12s linear infinite;
+}
+
+/* animation */
+@keyframes scrollUp {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+/* timeline item */
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+  color: white;
+  font-size: 1rem;
+}
+
+/* image */
+.timeline-item img {
+  width: 300px;
+  height: 200px;
+  object-fit: contain;
+}
+
+/* check icon */
+.timeline-item.active::before {
+  content: "✔";
+  color: #00ff9d;
+  font-weight: bold;
+}
+
+/* hover pause */
+.timeline-track:hover {
+  animation-play-state: paused;
+}
+
+/* 📱 Tablet */
+@media (max-width: 768px) {
+
+  .timeline {
+    height: 250px;
+  }
+
+  .timeline-item {
+    font-size: 0.9rem;
+  }
+
+  .timeline-item img {
+    width: 300px;
+    height: 200px;
+  }
+
+}
+
+/* 📱 Mobile */
+@media (max-width: 480px) {
+
+  .timeline {
+    height: 220px;
+  }
+
+  .timeline-item {
+    font-size: 0.8rem;
+  }
+
+  .timeline-item img {
+    width: 250px;
+    height: 105px;
+  }
+
+}
+
+
+
+/* contect temp */
+
+
+.contact-form input,
+.contact-form textarea {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: white;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #ccc;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.social-links a {
+  color: #00d4ff;
+  text-decoration: none;
+}
+
+.social-links a:hover {
+  text-decoration: underline;
+}
