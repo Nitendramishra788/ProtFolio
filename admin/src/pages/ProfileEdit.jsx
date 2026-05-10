@@ -1,7 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect,
+} from "react";
+
 import { useNavigate } from "react-router-dom";
 
 function ProfileEdit() {
+
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
@@ -13,6 +18,7 @@ function ProfileEdit() {
   });
 
   useEffect(() => {
+
     const data =
       JSON.parse(localStorage.getItem("profile")) || {};
 
@@ -23,45 +29,100 @@ function ProfileEdit() {
       about: data.about || "",
       message: data.message || "",
     });
+
   }, []);
 
   const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
+
+    setProfile({
+      ...profile,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
 
-    localStorage.setItem("profile", JSON.stringify(profile));
+    localStorage.setItem(
+      "profile",
+      JSON.stringify(profile)
+    );
 
     alert("Profile Updated ✅");
+
     navigate("/admin");
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Edit Profile</h2>
 
-      <form onSubmit={handleSubmit}>
+    <div className="form-page">
 
-        <input name="name" value={profile.name} onChange={handleChange} placeholder="Name" />
-        <br /><br />
+      <div className="form-container">
 
-        <input name="age" value={profile.age} onChange={handleChange} placeholder="Age" />
-        <br /><br />
+        <h2 className="form-title">
+          Edit Profile
+        </h2>
 
-        <input name="image" value={profile.image} onChange={handleChange} placeholder="Image URL" />
-        <br /><br />
+        <form
+          className="custom-form"
+          onSubmit={handleSubmit}
+        >
 
-        <input name="about" value={profile.about} onChange={handleChange} placeholder="About" />
-        <br /><br />
+          <input
+            type="text"
+            name="name"
+            value={profile.name || ""}
+            onChange={handleChange}
+            placeholder="Your Name"
+            className="custom-input"
+          />
 
-        <input name="message" value={profile.message} onChange={handleChange} placeholder="Message" />
-        <br /><br />
+          <input
+            type="text"
+            name="age"
+            value={profile.age || ""}
+            onChange={handleChange}
+            placeholder="Your Age"
+            className="custom-input"
+          />
 
-        <button type="submit">Save</button>
+          <input
+            type="text"
+            name="image"
+            value={profile.image || ""}
+            onChange={handleChange}
+            placeholder="Profile Image URL"
+            className="custom-input"
+          />
 
-      </form>
+          <textarea
+            name="about"
+            value={profile.about || ""}
+            onChange={handleChange}
+            placeholder="About Yourself"
+            className="custom-textarea"
+          ></textarea>
+
+          <textarea
+            name="message"
+            value={profile.message || ""}
+            onChange={handleChange}
+            placeholder="Custom Welcome Message"
+            className="custom-textarea"
+          ></textarea>
+
+          <button
+            type="submit"
+            className="submit-btn"
+          >
+            Save Profile
+          </button>
+
+        </form>
+
+      </div>
+
     </div>
   );
 }

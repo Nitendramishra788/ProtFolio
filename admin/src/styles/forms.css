@@ -1,0 +1,66 @@
+/*  FORM PAGE  */
+
+.form-page{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.form-container{
+  width: 100%;
+  max-width: 700px;
+  background: #1e293b;
+  padding: 35px;
+  border-radius: 20px;
+}
+
+.form-title{
+  color: white;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* FORM */
+
+.custom-form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* INPUT */
+
+.custom-input,
+.custom-textarea{
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  outline: none;
+  font-size: 16px;
+  background: #0f172a;
+  color: white;
+}
+
+.custom-textarea{
+  min-height: 130px;
+  resize: none;
+}
+
+/* BUTTON */
+
+.submit-btn{
+  height: 50px;
+  border: none;
+  border-radius: 14px;
+  background: seagreen;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover{
+  transform: scale(1.02);
+}

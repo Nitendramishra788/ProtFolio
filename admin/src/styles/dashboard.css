@@ -1,0 +1,209 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* .dashboard-layout{
+  display: flex;
+  min-height: 100vh;
+  background: #0f172a;
+} */
+
+.dashboard-layout{
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width: 240px;
+  background: #111827;
+  color: white;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.sidebar h1{
+  margin-bottom: 30px;
+}
+
+.sidebar ul{
+  list-style: none;
+}
+
+.sidebar ul li{
+  margin: 20px 0;
+}
+
+.sidebar ul li a{
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+.sidebar button{
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/*  MAIN  */
+
+/* .main-section{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+} */
+
+
+.main-section{
+  flex: 1;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* .page-content{
+  padding: 20px;
+  color: white;
+} */
+
+
+.page-content{
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/*  TOPBAR  */
+
+.topbar{
+  height: 70px;
+  background: #1e293b;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  color: white;
+}
+
+.menu-btn{
+  display: none;
+  margin-right: 15px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+/*  RESPONSIVE  */
+
+.sidebar-overlay{
+  display: none;
+}
+
+
+
+/* DashboardHome */
+
+
+
+.dashboard-home{
+  padding: 20px;
+}
+
+.dashboard-container{
+  display: flex;
+  gap: 40px;
+}
+
+/* LEFT */
+
+.profile-section{
+  flex: 1;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.profile-image-box{
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image{
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.edit-btn{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.profile-age{
+  margin-top: 20px;
+  color: white;
+}
+
+.profile-about{
+  margin-top: 10px;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+/* RIGHT */
+
+.welcome-section{
+  flex: 2;
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 20px;
+  color: white;
+}
+
+.welcome-message{
+  margin-top: 15px;
+  color: #cbd5e1;
+  line-height: 1.8;
+}
+
+/* STATS */
+
+.stats-container{
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stats-card{
+  flex: 1;
+  min-width: 220px;
+  background: #0f172a;
+  padding: 25px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.stats-card h3{
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+

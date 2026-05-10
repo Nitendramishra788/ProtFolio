@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function DashboardHome() {
+
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({});
@@ -9,6 +10,7 @@ function DashboardHome() {
   const [totalSkills, setTotalSkills] = useState(0);
 
   useEffect(() => {
+
     const profileData =
       JSON.parse(localStorage.getItem("profile")) || {};
 
@@ -21,64 +23,79 @@ function DashboardHome() {
     setProfile(profileData);
     setTotalProjects(projects.length);
     setTotalSkills(skills.length);
+
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "40px",
-          flexWrap: "wrap",
-        }}
-      >
+    <div className="dashboard-home">
+
+      <div className="dashboard-container">
 
         {/* LEFT SIDE */}
-        <div style={{ flex: 1, textAlign: "center" }}>
-          <div style={{ position: "relative", display: "inline-block" }}>
+
+        <div className="profile-section">
+
+          <div className="profile-image-box">
+
             <img
               src={profile.image || "/default.png"}
               alt="profile"
-              style={{
-                width: "300px",
-                height: "300px",
-                borderRadius: "50%",
-                objectFit: "cover",
-              }}
+              className="profile-image"
             />
 
-            {/* edit icon */}
             <button
+              className="edit-btn"
               onClick={() => navigate("/admin/profile-edit")}
-              style={{
-                position: "absolute",
-                top: "0",
-                right: "0",
-                borderRadius: "50%",
-                cursor: "pointer",
-              }}
             >
               ✏️
             </button>
+
           </div>
 
-          <p>{profile.age || ""}</p>
-          <p>{profile.about || "Add your bio..."}</p>
+          <h3 className="profile-age">
+            {profile.age || "Age"}
+          </h3>
+
+          <p className="profile-about">
+            {profile.about || "Add your bio..."}
+          </p>
+
         </div>
 
         {/* RIGHT SIDE */}
-        <div style={{ flex: 2 }}>
-          <h2>Welcome {profile.name || "User"} 👋</h2>
-          <p>{profile.message || "Write something about yourself..."}</p>
 
-          <div style={{ marginTop: "20px" }}>
-            <h3>Total Projects: {totalProjects}</h3>
-            <h3>Total Skills: {totalSkills}</h3>
+        <div className="welcome-section">
+
+          <h2>
+            Welcome {profile.name || "User"} 👋
+          </h2>
+
+          <p className="welcome-message">
+            {profile.message ||
+              "Write something about yourself..."}
+          </p>
+
+          {/* STATS */}
+
+          <div className="stats-container">
+
+            <div className="stats-card">
+              <h3>{totalProjects}</h3>
+              <p>Total Projects</p>
+            </div>
+
+            <div className="stats-card">
+              <h3>{totalSkills}</h3>
+              <p>Total Skills</p>
+            </div>
+
           </div>
+
         </div>
 
       </div>
+
     </div>
   );
 }

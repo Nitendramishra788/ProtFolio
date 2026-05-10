@@ -1,18 +1,32 @@
-import React from 'react'
-import Sidebar from '../component/Sidebar';
-import { Outlet } from 'react-router-dom';
+import React, { useState } from "react";
+import Sidebar from "../component/Sidebar";
+import Topbar from "../component/Topbar";
+import { Outlet } from "react-router-dom";
 
-function DashboardLayout({children }) {
-  return ( 
-    <div style={{ display: "flex" }}>
-      <Sidebar/>
+function DashboardLayout() {
+  const [openSidebar, setOpenSidebar] = useState(false);
 
-      {/* main Contect */}
+  return (
+    <div className="dashboard-layout">
 
-      <div style={{ flex: 1, padding: "20px", color: "white" }}>{children} </div>
-      <Outlet/>
+      <Sidebar
+        openSidebar={openSidebar}
+        setOpenSidebar={setOpenSidebar}
+      />
+
+      <div className="main-section">
+
+        <Topbar
+          toggleSidebar={() => setOpenSidebar(!openSidebar)}
+        />
+
+        <div className="page-content">
+          <Outlet />
+        </div>
+
+      </div>
     </div>
-   );
+  );
 }
 
 export default DashboardLayout;

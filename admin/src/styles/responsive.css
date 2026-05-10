@@ -1,0 +1,143 @@
+/* DASHBOARD LAYOUT */
+
+@media(max-width:768px){
+
+  .dashboard-layout{
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .main-section{
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .page-content{
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .menu-btn{
+    display: block;
+  }
+
+  .sidebar{
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    z-index: 1000;
+    transition: 0.3s;
+  }
+
+  .show-sidebar{
+    left: 0;
+  }
+
+  .sidebar-overlay{
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+  }
+}
+
+
+
+/*  DASHBOARD HOME */
+
+@media(max-width:768px){
+
+  .dashboard-container{
+    flex-direction: column;
+  }
+
+  .profile-section{
+    padding: 20px;
+  }
+
+  .profile-image{
+    width: 180px;
+    height: 180px;
+  }
+
+  .welcome-section{
+    text-align: center;
+    padding: 20px;
+  }
+
+  .stats-container{
+    flex-direction: column;
+  }
+}
+
+
+
+/*  PROJECT LIST  */
+
+@media(max-width:768px){
+
+  .project-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .project-btns{
+    flex-direction: column;
+  }
+
+  .project-image{
+    height: 180px;
+  }
+}
+
+
+
+/*  FORMS  */
+
+@media(max-width:768px){
+
+  .form-page{
+    padding: 10px;
+  }
+
+  .form-container{
+    padding: 20px;
+  }
+
+  .custom-input,
+  .custom-textarea{
+    font-size: 14px;
+  }
+
+  .submit-btn{
+    height: 48px;
+  }
+}
+
+
+
+/*  SKILLS  */
+
+@media(max-width:768px){
+
+  .skill-header{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .skill-btns{
+    flex-direction: column;
+  }
+
+  .skill-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .skill-image{
+    height: 180px;
+  }
+}

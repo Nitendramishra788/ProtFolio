@@ -1,44 +1,57 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import {useNavigate} from 'react-router-dom'
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ openSidebar, setOpenSidebar }) {
 
   const navigate = useNavigate();
 
-  const handelLogout=()=>{
-      localStorage.removeItem("auth");
-      navigate("/admin/login")
-  }
-    return ( 
-        <div  style={{
-        width: "220px",
-        height: "100vh",
-        background: "#111",
-        padding: "20px",
-      }}>
-          <h1 style={{color:"white"}}>Admin</h1>
+  const handelLogout = () => {
+    localStorage.removeItem("auth");
+    navigate("/admin/login");
+  };
 
-          <ul>
-            <li><Link to="/admin" >Dashboard</Link></li>
-            <li><Link to="/admin/projects" >Projets</Link></li>
-            <li><Link to="/admin/add-project" >Add Projets</Link></li>
-            <li><Link to="/admin/skills" >Skills</Link></li>
-          </ul>
+  return (
+    <>
+      {/* overlay */}
 
-          <button onClick={handelLogout} style={{
-          marginTop: "20px",
-          padding: "10px",
-          width: "100%",
-          background: "red",
-          borderRadius:"1rem",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-        }}
-  > Logout</button>
-        </div>
-     );
+      {openSidebar && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setOpenSidebar(false)}
+        ></div>
+      )}
+
+      <div className={`sidebar ${openSidebar ? "show-sidebar" : ""}`}>
+
+        <h1>Admin</h1>
+
+        <ul>
+
+          <li>
+            <Link to="/admin">Dashboard</Link>
+          </li>
+
+          <li>
+            <Link to="/admin/projects">Projects</Link>
+          </li>
+
+          <li>
+            <Link to="/admin/add-project">Add Project</Link>
+          </li>
+
+          <li>
+            <Link to="/admin/skills">Skills</Link>
+          </li>
+
+        </ul>
+
+        <button onClick={handelLogout}>
+          Logout
+        </button>
+
+      </div>
+    </>
+  );
 }
 
 export default Sidebar;

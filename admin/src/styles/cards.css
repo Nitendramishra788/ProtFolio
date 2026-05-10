@@ -1,0 +1,196 @@
+/* PROJECT LIST */
+
+.project-list-page{
+  padding: 20px;
+}
+
+.page-title{
+  color: white;
+  margin-bottom: 25px;
+}
+
+.empty-message{
+  color: #cbd5e1;
+}
+
+/* GRID */
+
+.project-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 25px;
+}
+
+/* CARD */
+
+.project-card{
+  background: #1e293b;
+  border-radius: 18px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.project-card:hover{
+  transform: translateY(-5px);
+}
+
+.project-image{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-content{
+  padding: 20px;
+}
+
+.project-content h3{
+  color: white;
+  margin-bottom: 12px;
+}
+
+.project-content p{
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+/* LINKS */
+
+.project-links{
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.project-links a{
+  text-decoration: none;
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+/* BUTTONS */
+
+.project-btns{
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.delete-btn,
+.edit-project-btn{
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+}
+
+.delete-btn{
+  background: crimson;
+}
+
+.edit-project-btn{
+  background: seagreen;
+}
+
+
+
+
+
+/*  SKILLS  */
+
+.skill-list-page{
+  padding: 20px;
+}
+
+/* HEADER */
+
+.skill-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.add-skill-btn{
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  background: seagreen;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* GRID */
+
+.skill-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 25px;
+}
+
+/* CARD */
+
+.skill-card{
+  background: #1e293b;
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.skill-card:hover{
+  transform: translateY(-5px);
+}
+
+/* .skill-image{
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  margin-bottom: 20px;
+} */
+
+
+.skill-image{
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.skill-title{
+  color: white;
+  margin-bottom: 20px;
+}
+
+/* BUTTONS */
+
+.skill-btns{
+  display: flex;
+  gap: 12px;
+}
+
+
+/* add skills BTn */
+
+.add-skill-btn{
+  padding: 12px 20px;
+  border: none;
+  border-radius: 12px;
+  background: seagreen;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-skill-btn:hover{
+  transform: scale(1.03);
+  opacity: 0.9;
+}
