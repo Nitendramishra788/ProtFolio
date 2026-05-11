@@ -43,7 +43,13 @@ function Sidebar({ openSidebar, setOpenSidebar }) {
             <Link to="/admin/skills">Skills</Link>
           </li>
 
+          <li>
+            <Link to="/admin/messages">Messages</Link>
+          </li>
+
         </ul>
+
+
 
         <button onClick={handelLogout}>
           Logout

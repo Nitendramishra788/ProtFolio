@@ -141,3 +141,33 @@
     height: 180px;
   }
 }
+
+
+
+/* this is for responsive messages */
+
+@media(max-width:768px){
+
+    .message-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .message-top{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .message-actions{
+        flex-direction: column;
+    }
+
+}
+
+
+/* @media(max-width:768px){
+
+    .message-grid{
+        grid-template-columns: 1fr;
+    }
+
+} */

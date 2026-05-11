@@ -1,59 +1,166 @@
-import React from 'react'
+import { useState, useEffect } from "react";
 
-function Hero() {
-   return (
-    <div className="RightMain">
-      <div className="container">
-        <div className="row align-items-center">
+function MessageList() {
 
-          {/* LEFT - INFO */}
-          <div className="col-lg-5 col-12 mb-4 text-center text-lg-start">
-            <h2>Contact Me</h2>
-            <p>Feel free to reach out anytime 👇</p>
+  const [messages, setMessages] = useState([]);
 
-            <p>Email: nitendramishra788@gmail.com</p>
-            <p>Phone: +91 XXXXXXXX</p>
+  // Fetch messages from localStorage
+  useEffect(() => {
 
-            <div className="social-links mt-3">
-              <a href="#">LinkedIn</a><br />
-              <a href="#">GitHub</a><br />
-              <a href="#">Instagram</a>
-            </div>
-          </div>
+    const storedMessages =
+      JSON.parse(localStorage.getItem("messages")) || [];
 
-          {/* RIGHT - FORM */}
-          <div className="col-lg-7 col-12">
-            <form className="contact-form">
+    // newest messages first
+    setMessages([...storedMessages].reverse());
 
-              <input 
-                type="text" 
-                placeholder="Your Name" 
-                className="form-control mb-3"
-              />
+  }, []);
 
-              <input 
-                type="email" 
-                placeholder="Your Email" 
-                className="form-control mb-3"
-              />
 
-              <textarea 
-                placeholder="Your Message" 
-                className="form-control mb-3"
-                rows="5"
-              ></textarea>
 
-              <button className="btn btn-outline-light w-100">
-                Send Message
-              </button>
 
-            </form>
-          </div>
+  // Delete Message
+  const handleDelete = (index) => {
 
-        </div>
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this message?"
+    );
+
+    if (!confirmDelete) return;
+
+    const updatedMessages = messages.filter(
+      (_, i) => i !== index
+    );
+
+    // Update localStorage
+    localStorage.setItem(
+      "messages",
+      JSON.stringify([...updatedMessages].reverse())
+    );
+
+    // Update UI
+    setMessages(updatedMessages);
+  };
+
+
+
+
+
+  // Toggle Read / Unread
+  const toggleReadStatus = (index) => {
+
+    const updatedMessages = [...messages];
+
+    updatedMessages[index].isRead =
+      !updatedMessages[index].isRead;
+
+    // Update localStorage
+    localStorage.setItem(
+      "messages",
+      JSON.stringify([...updatedMessages].reverse())
+    );
+
+    // Update UI
+    setMessages(updatedMessages);
+  };
+
+
+
+
+
+  return (
+    <div className="page-container">
+
+      <div className="page-header">
+        <h2>All Messages</h2>
       </div>
+
+
+      <div className="message-grid">
+
+        {messages.length > 0 ? (
+
+          messages.map((msg, index) => (
+
+            <div
+              key={index}
+              className={`message-card ${
+                msg.isRead ? "read" : "unread"
+              }`}
+            >
+
+              <div className="message-top">
+
+                <h3>{msg.name}</h3>
+
+                <span>
+                  {msg.isRead
+                    ? "✅ Read"
+                    : "📩 Unread"}
+                </span>
+
+              </div>
+
+
+
+              <p className="message-email">
+                {msg.email}
+              </p>
+
+
+
+              <small className="message-date">
+                {new Date(
+                  msg.createdAt
+                ).toLocaleString()}
+              </small>
+
+
+
+              <div className="message-text">
+                {msg.message}
+              </div>
+
+
+
+              <div className="message-actions">
+
+                <button
+                  onClick={() =>
+                    toggleReadStatus(index)
+                  }
+                >
+                  {msg.isRead
+                    ? "Mark Unread"
+                    : "Mark Read"}
+                </button>
+
+
+
+                <button
+                  className="delete-btn"
+                  onClick={() =>
+                    handleDelete(index)
+                  }
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          ))
+
+        ) : (
+
+          <p>No Messages Found</p>
+
+        )}
+
+      </div>
+
     </div>
   );
 }
 
-export default Hero;
+export default MessageList;

@@ -12,6 +12,7 @@ import EditProject from "../Projects/EditProject";
 import ProfileEdit from '../pages/ProfileEdit'
 import AddSkill from "../skills/AddSkill";
 import EditSkill from "../skills/EditSkill";
+import MessageList from "../messages/MessageList";
 
 function AdminRoutes() {
   const { isLoggedIn } = useAuth();
@@ -40,7 +41,7 @@ function AdminRoutes() {
         <Route path="/edit-skill/:id" element={<EditSkill />} />
         <Route path="/edit-project/:id" element={<EditProject/>}/>
         <Route path="/profile-edit"  element={<ProfileEdit/>}/>
-
+        <Route path="/messages" element={<MessageList/>}/>
 
         
       </Route>
