@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 function MessageList() {
     const [messages , setMessages] = useState([]);
     const [searchTerm , setSearchTerm] = useState("");
+    const [currentFilter , setCurrentFilter] = useState("all");
 
     // now we will fetch the messages from local storage
     useEffect(() => {
@@ -50,9 +51,9 @@ function MessageList() {
     // now we will filter the messages based on the search term
     const filteredMessages = messages.filter((msg) => {
 
-  return (
+  
 
-    msg.name
+   const matchesSearch = msg.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase())
 
@@ -60,9 +61,22 @@ function MessageList() {
 
     msg.email
       .toLowerCase()
-      .includes(searchTerm.toLowerCase())
+      .includes(searchTerm.toLowerCase());
 
-  );
+      
+//  this is logic for searching in message content by all read and unread messages
+
+const matchesMessage = 
+currentFilter === "all"
+||
+(currentFilter === "read" && msg.isRead)
+||
+
+(currentFilter === "unread" && !msg.isRead);
+
+return matchesSearch && matchesMessage;
+
+
 
 });
 
@@ -81,6 +95,20 @@ function MessageList() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+      </div>
+
+      <div className="filter-buttons">
+        <button onClick={()=>setCurrentFilter("all")}>
+        All
+        </button>
+
+        <button onClick={()=> setCurrentFilter("read")}>
+          Read
+        </button>
+
+        <button onClick={()=> setCurrentFilter("unread")} >
+          Unread
+        </button>
       </div>
 
       <div className="message-grid">
@@ -135,6 +163,23 @@ function MessageList() {
                 >
                   Delete
                 </button>
+
+                {/* this is reply button */}
+
+                <button className='reply-btn'>
+                     <a
+                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${msg.email}`}
+                  target="_blank"
+
+                  style={{textDecoration:"none" , color:"white"}}
+                >
+                  Reply
+                </a>
+
+                </button>
+
+               
+
               </div>
             </div>
           ))
