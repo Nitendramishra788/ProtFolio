@@ -435,7 +435,7 @@ body{
 .RightMain{
     width: 100%;
     min-height: 100vh;
-    background: #000;
+  background-color: rgba(255, 255, 255, 0.1);
     overflow: hidden;
 
     display: flex;

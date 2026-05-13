@@ -45,7 +45,7 @@ function ContactSocial() {
             <div className="image-box">
 
               <img
-                src="/image/media Pic.png"
+                src="/image/Icon_img.png"
                 alt="contact"
                 className="contact-img"
               />
