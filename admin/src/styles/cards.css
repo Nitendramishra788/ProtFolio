@@ -278,3 +278,33 @@
     background: crimson;
     color: white;
 }
+
+
+/* this is part of messages search bar */
+
+.search-box{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.search-box input{
+    width: 100%;
+    max-width: 400px;
+    padding: 14px 16px;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    background: #111827;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.search-box input:focus{
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.search-box input::placeholder{
+    color: #9ca3af;
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 function MessageList() {
     const [messages , setMessages] = useState([]);
+    const [searchTerm , setSearchTerm] = useState("");
 
     // now we will fetch the messages from local storage
     useEffect(() => {
@@ -43,7 +44,27 @@ function MessageList() {
             JSON.stringify(updatedMessages.reverse())
         );
         setMessages(updatedMessages);
+        
     };
+
+    // now we will filter the messages based on the search term
+    const filteredMessages = messages.filter((msg) => {
+
+  return (
+
+    msg.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+
+    ||
+
+    msg.email
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+
+  );
+
+});
 
 
   
@@ -53,9 +74,18 @@ function MessageList() {
         <h2>All Messages</h2>
       </div>
 
+      <div className="search-box">
+        <input
+          type="text"
+          placeholder="Search by name, email or message..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="message-grid">
         {messages.length > 0 ? (
-          messages.map((msg, index) => (
+          filteredMessages.map((msg, index) => (
             <div
               key={index}
               className={`message-card ${
