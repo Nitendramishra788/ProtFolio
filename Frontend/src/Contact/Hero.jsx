@@ -1,166 +1,70 @@
-import { useState, useEffect } from "react";
+import React from 'react'
 
-function MessageList() {
-
-  const [messages, setMessages] = useState([]);
-
-  // Fetch messages from localStorage
-  useEffect(() => {
-
-    const storedMessages =
-      JSON.parse(localStorage.getItem("messages")) || [];
-
-    // newest messages first
-    setMessages([...storedMessages].reverse());
-
-  }, []);
-
-
-
-
-  // Delete Message
-  const handleDelete = (index) => {
-
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this message?"
-    );
-
-    if (!confirmDelete) return;
-
-    const updatedMessages = messages.filter(
-      (_, i) => i !== index
-    );
-
-    // Update localStorage
-    localStorage.setItem(
-      "messages",
-      JSON.stringify([...updatedMessages].reverse())
-    );
-
-    // Update UI
-    setMessages(updatedMessages);
-  };
-
-
-
-
-
-  // Toggle Read / Unread
-  const toggleReadStatus = (index) => {
-
-    const updatedMessages = [...messages];
-
-    updatedMessages[index].isRead =
-      !updatedMessages[index].isRead;
-
-    // Update localStorage
-    localStorage.setItem(
-      "messages",
-      JSON.stringify([...updatedMessages].reverse())
-    );
-
-    // Update UI
-    setMessages(updatedMessages);
-  };
-
-
-
-
+function Hero() {
 
   return (
-    <div className="page-container">
 
-      <div className="page-header">
-        <h2>All Messages</h2>
-      </div>
+    <div className="RightMain">
 
+      <div className="container">
 
-      <div className="message-grid">
+        <div className="row align-items-center">
 
-        {messages.length > 0 ? (
+          {/* LEFT - INFO */}
+          <div className="col-lg-5 col-12 mb-4 text-center text-lg-start">
 
-          messages.map((msg, index) => (
+            <h2>Contact Me</h2>
 
-            <div
-              key={index}
-              className={`message-card ${
-                msg.isRead ? "read" : "unread"
-              }`}
-            >
+            <p>Feel free to reach out anytime 👇</p>
 
-              <div className="message-top">
+            <p>Email: nitendramishra788@gmail.com</p>
 
-                <h3>{msg.name}</h3>
+            <p>Phone: +91 9956168757</p>
 
-                <span>
-                  {msg.isRead
-                    ? "✅ Read"
-                    : "📩 Unread"}
-                </span>
+           
 
-              </div>
+          </div>
 
 
+          {/* RIGHT - FORM */}
+          <div className="col-lg-7 col-12">
 
-              <p className="message-email">
-                {msg.email}
-              </p>
+            <form className="contact-form">
 
+              <input
+                type="text"
+                placeholder="Your Name"
+                className="form-control mb-3"
+              />
 
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="form-control mb-3"
+              />
 
-              <small className="message-date">
-                {new Date(
-                  msg.createdAt
-                ).toLocaleString()}
-              </small>
+              <textarea
+                placeholder="Your Message"
+                className="form-control mb-3"
+                rows="5"
+              ></textarea>
 
+              <button className="btn btn-outline-light w-100">
+                Send Message
+              </button>
 
+            </form>
 
-              <div className="message-text">
-                {msg.message}
-              </div>
+          </div>
 
-
-
-              <div className="message-actions">
-
-                <button
-                  onClick={() =>
-                    toggleReadStatus(index)
-                  }
-                >
-                  {msg.isRead
-                    ? "Mark Unread"
-                    : "Mark Read"}
-                </button>
-
-
-
-                <button
-                  className="delete-btn"
-                  onClick={() =>
-                    handleDelete(index)
-                  }
-                >
-                  Delete
-                </button>
-
-              </div>
-
-            </div>
-
-          ))
-
-        ) : (
-
-          <p>No Messages Found</p>
-
-        )}
+        </div>
 
       </div>
 
     </div>
-  );
+
+  )
+
 }
 
-export default MessageList;
+export default Hero
