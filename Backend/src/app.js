@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const testRoutes = require('./routes/testRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();  
 
@@ -10,6 +11,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/test" , testRoutes);
+app.use("/api/auth" , authRoutes);
 
 // app.get("/" , (req , res) => {
 //     res.send("Hello World");
