@@ -7,13 +7,16 @@ const CreateProject = asyncHandler(
     async(req , res)=>{
 
         const {
-            image,
+           
             title,
             description,
             live,
             code,
 
         } = req.body;
+
+        // upload image
+        const image = req.file.filename;
 
         const project = await Project.create({
             image,

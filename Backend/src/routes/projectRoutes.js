@@ -1,4 +1,5 @@
 const express = require("express");
+const upload = require("../middlewares/uploadMiddleware");
 
 const {
     CreateProject,
@@ -28,7 +29,9 @@ router.get(
 router.post(
     "/",
     authMiddleware,
-    CreateProject
+     upload.single("image"),
+    CreateProject,
+   
 );
 
 // update project route

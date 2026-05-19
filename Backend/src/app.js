@@ -4,6 +4,7 @@ const testRoutes = require('./routes/testRoutes');
 const errorMiddleware = require('./middlewares/errorMiddleware');
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 
 const app = express();  
 
@@ -14,6 +15,13 @@ app.use(express.json());
 app.use("/api/test" , testRoutes);
 app.use("/api/auth" , authRoutes);
 app.use("/api/projects" , projectRoutes);
+app.use("/api/upload" , uploadRoutes);
+
+app.use(
+    "/uploads",
+    express.static("src/uploads")
+
+);
 
 // app.get("/" , (req , res) => {
 //     res.send("Hello World");
