@@ -5,6 +5,8 @@ const errorMiddleware = require('./middlewares/errorMiddleware');
 const authRoutes = require("./routes/authRoutes");
 const projectRoutes = require("./routes/projectRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
+const skillRoutes = require("./routes/skillRoutes");
+
 
 const app = express();  
 
@@ -16,6 +18,7 @@ app.use("/api/test" , testRoutes);
 app.use("/api/auth" , authRoutes);
 app.use("/api/projects" , projectRoutes);
 app.use("/api/upload" , uploadRoutes);
+app.use("/api/skills" , skillRoutes);
 
 app.use(
     "/uploads",
