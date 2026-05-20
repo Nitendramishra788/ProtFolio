@@ -7,7 +7,7 @@ const projectRoutes = require("./routes/projectRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const skillRoutes = require("./routes/skillRoutes");
 const profileRoutes = require("./routes/profileRoutes");
-
+const messageRoutes = require("./routes/messageRoutes");
 
 const app = express();  
 
@@ -21,6 +21,7 @@ app.use("/api/projects" , projectRoutes);
 app.use("/api/upload" , uploadRoutes);
 app.use("/api/skills" , skillRoutes);
 app.use("/api/profile" , profileRoutes);
+app.use("/api/messages" , messageRoutes);
 
 app.use(
     "/uploads",
