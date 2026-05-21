@@ -5,6 +5,7 @@ import "./styles/dashboard.css";
 import "./styles/responsive.css";
 import "./styles/cards.css";
 import "./styles/forms.css";
+import "./styles/login.css";
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

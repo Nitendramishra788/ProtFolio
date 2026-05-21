@@ -5,18 +5,18 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
-      <img
-              src="/image/logo.png"
-              alt="logo"
-              style={{ width:"6%"}}
-                className="nav-logo"
-             
-            />
+        <img
+          src="/image/logo.png"
+          alt="logo"
+          style={{ width: "6%" }}
+          className="nav-logo"
 
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
+        />
+
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
         >
           <span className="navbar-toggler-icon"></span>
@@ -40,6 +40,22 @@ function Navbar() {
             <li className="nav-item">
               <Link className="nav-link" to="/contact">Contact</Link>
             </li>
+
+          <li>
+            <Link className="nav-link" to="http://localhost:5174/admin/login" >Admin</Link>
+          </li>
+            {/* <li>
+              <button
+                onClick={() =>
+                  window.open(
+                    "http://localhost:5174/admin/login",
+                    "_blank"
+                  )
+                }
+              >
+                Admin
+              </button>
+            </li> */}
 
           </ul>
         </div>
