@@ -1,18 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-
+import axios from "axios";
 function Hero() {
 
-  const skills = [
-    { name: "HTML", img: "/skills/HTML.png" },
-    { name: "CSS", img: "/skills/CSS.png" },
-    { name: "Git & GitHub", img: "/skills/gitGitHub.png" },
-    { name: "Node.js", img: "/skills/React.Js.png" },
-    { name: "MongoDB", img: "/skills/MongoDB.png" },
-    { name: "JavaScript", img: "/skills/JavaScript.png" },
-    { name: "C++", img: "/skills/C++.png" },
-    { name: "Java", img: "/skills/Java.png" },
-  ];
+  const [skills , setSkills] = useState([]);
+
+  useEffect(()=>{
+    const fetchSkills = async()=>{
+      try{
+        const {data} = await axios.get(
+          "http://localhost:3000/api/skills"
+        );
+
+        setSkills(data.skills);
+
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+     fetchSkills();
+
+  },[]);
+
+  // const skills = [
+  //   { name: "HTML", img: "/skills/HTML.png" },
+  //   { name: "CSS", img: "/skills/CSS.png" },
+  //   { name: "Git & GitHub", img: "/skills/gitGitHub.png" },
+  //   { name: "Node.js", img: "/skills/React.Js.png" },
+  //   { name: "MongoDB", img: "/skills/MongoDB.png" },
+  //   { name: "JavaScript", img: "/skills/JavaScript.png" },
+  //   { name: "C++", img: "/skills/C++.png" },
+  //   { name: "Java", img: "/skills/Java.png" },
+  // ];
 
   const loopSkills = [...skills, ...skills]; // infinite trick
 
@@ -29,8 +49,8 @@ function Hero() {
 
                 {loopSkills.map((item, index) => (
                   <div className="timeline-item active" key={index}>
-                    <img src={item.img} alt={item.name} />
-                    <span>{item.name}</span>
+                    <img src={`http://localhost:3000/uploads/${item.image}`} alt={item.title} />
+                    <span>{item.title}</span>
                   </div>
                 ))}
 
