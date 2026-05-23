@@ -3,6 +3,13 @@ import React, {
   useEffect,
 } from "react";
 
+import axios from "axios";
+
+import {
+  updateSkill
+}
+  from "../services/SkillService";
+
 import {
   useParams,
   useNavigate,
@@ -16,46 +23,162 @@ function EditSkill() {
 
   const [skill, setSkill] = useState({
     title: "",
-    image: "",
+    // image: "",
+    image: null,
   });
+
+  // useEffect(() => {
+
+  //   const data =
+  //     JSON.parse(localStorage.getItem("skills")) || [];
+
+  //   if (data[id]) {
+  //     setSkill(data[id]);
+  //   }
+
+  // }, [id]);
 
   useEffect(() => {
 
-    const data =
-      JSON.parse(localStorage.getItem("skills")) || [];
+    const fetchSkill =
+      async () => {
 
-    if (data[id]) {
-      setSkill(data[id]);
-    }
+        try {
+
+          const { data } =
+            await axios.get(
+              "http://localhost:3000/api/skills"
+            );
+
+          const foundSkill =
+            data.skills.find(
+              (item) =>
+                item._id === id
+            );
+
+          if (foundSkill) {
+
+            setSkill(foundSkill);
+
+          }
+
+        } catch (error) {
+
+          console.log(error);
+
+        }
+
+      };
+
+    fetchSkill();
 
   }, [id]);
 
+
+  // const handleChange = (e) => {
+
+  //   setSkill({
+  //     ...skill,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
+
   const handleChange = (e) => {
 
-    setSkill({
-      ...skill,
-      [e.target.name]: e.target.value,
-    });
+    if (
+      e.target.name === "image"
+    ) {
+
+      setSkill({
+
+        ...skill,
+
+        image:
+          e.target.files[0],
+
+      });
+
+    } else {
+
+      setSkill({
+
+        ...skill,
+
+        [e.target.name]:
+          e.target.value,
+
+      });
+
+    }
+
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
 
-    e.preventDefault();
+  //   e.preventDefault();
 
-    const data =
-      JSON.parse(localStorage.getItem("skills")) || [];
+  //   const data =
+  //     JSON.parse(localStorage.getItem("skills")) || [];
 
-    data[id] = skill;
+  //   data[id] = skill;
 
-    localStorage.setItem(
-      "skills",
-      JSON.stringify(data)
-    );
+  //   localStorage.setItem(
+  //     "skills",
+  //     JSON.stringify(data)
+  //   );
 
-    alert("Skill Updated ✅");
+  //   alert("Skill Updated ✅");
 
-    navigate("/admin/skills");
-  };
+  //   navigate("/admin/skills");
+  // };
+
+  const handleSubmit =
+    async (e) => {
+
+      e.preventDefault();
+
+      try {
+
+        const token =
+          localStorage.getItem("token");
+
+        const formData =
+          new FormData();
+
+        formData.append(
+          "title",
+          skill.title
+        );
+
+        // image only if selected
+        if (
+          skill.image instanceof File
+        ) {
+
+          formData.append(
+            "image",
+            skill.image
+          );
+
+        }
+
+        await updateSkill(
+          id,
+          formData,
+          token
+        );
+
+        alert("Skill Updated ");
+
+        navigate("/admin/skills");
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
 
   return (
 
@@ -81,12 +204,19 @@ function EditSkill() {
             className="custom-input"
           />
 
-          <input
-            type="text"
+          {/* <input
+            type="file"
             name="image"
             value={skill.image || ""}
             onChange={handleChange}
             placeholder="Image URL"
+            className="custom-input"
+          /> */}
+
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
             className="custom-input"
           />
 

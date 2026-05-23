@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
+import {
+  createSkill
+}
+from "../services/SkillService";
 
 function AddSkill() {
 
@@ -8,38 +12,113 @@ function AddSkill() {
 
   const [skill, setSkill] = useState({
     title: "",
-    image: "",
+    // image: "",
+    image: null,
   });
+
+  // const handleChange = (e) => {
+
+    
+
+  //   setSkill({
+  //     ...skill,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleChange = (e) => {
 
+  if (
+    e.target.name === "image"
+  ) {
+
     setSkill({
+
       ...skill,
-      [e.target.name]: e.target.value,
+
+      image:
+        e.target.files[0],
+
     });
-  };
 
-  const handleSubmit = (e) => {
+  } else {
 
-    e.preventDefault();
+    setSkill({
 
-    const oldSkills =
-      JSON.parse(localStorage.getItem("skills")) || [];
+      ...skill,
 
-    const updated = [
-      ...oldSkills,
-      skill,
-    ];
+      [e.target.name]:
+        e.target.value,
 
-    localStorage.setItem(
-      "skills",
-      JSON.stringify(updated)
+    });
+
+  }
+
+};
+
+
+  // const handleSubmit = (e) => {
+
+  //   e.preventDefault();
+
+  //   const oldSkills =
+  //     JSON.parse(localStorage.getItem("skills")) || [];
+
+  //   const updated = [
+  //     ...oldSkills,
+  //     skill,
+  //   ];
+
+  //   localStorage.setItem(
+  //     "skills",
+  //     JSON.stringify(updated)
+  //   );
+
+  //   alert("Skill Added ✅");
+
+  //   navigate("/admin/skills");
+  // };
+
+
+  const handleSubmit =
+async (e) => {
+
+  e.preventDefault();
+
+  try {
+
+    const token =
+      localStorage.getItem("token");
+
+    const formData =
+      new FormData();
+
+    formData.append(
+      "title",
+      skill.title
     );
 
-    alert("Skill Added ✅");
+    formData.append(
+      "image",
+      skill.image
+    );
+
+    await createSkill(
+      formData,
+      token
+    );
+
+    alert("Skill Added ");
 
     navigate("/admin/skills");
-  };
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
 
   return (
 
@@ -65,7 +144,7 @@ function AddSkill() {
           />
 
           <input
-            type="text"
+            type="file"
             name="image"
             placeholder="Image URL"
             onChange={handleChange}

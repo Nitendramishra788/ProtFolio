@@ -3,6 +3,12 @@ import React, {
   useState,
 } from "react";
 
+import {
+  getSkills,
+  deleteSkill
+}
+  from "../services/SkillService";
+
 import { useNavigate } from "react-router-dom";
 
 function SkillList() {
@@ -11,27 +17,82 @@ function SkillList() {
 
   const navigate = useNavigate();
 
+  // useEffect(() => {
+
+  //   // const data =
+  //   //   JSON.parse(localStorage.getItem("skills")) || [];
+
+  //   // setSkills(data);
+
+  // }, []);
+
+
+  // new DB connection
   useEffect(() => {
 
-    const data =
-      JSON.parse(localStorage.getItem("skills")) || [];
+    const fetchSkills =
+      async () => {
 
-    setSkills(data);
+        try {
+
+          const data =
+            await getSkills();
+
+          setSkills(data);
+
+        } catch (error) {
+
+          console.log(error);
+
+        }
+
+      };
+
+    fetchSkills();
 
   }, []);
 
-  const handleDelete = (index) => {
+  // const handleDelete = (index) => {
 
-    const updated =
-      skills.filter((_, i) => i !== index);
+  //   const updated =
+  //     skills.filter((_, i) => i !== index);
 
-    setSkills(updated);
+  //   setSkills(updated);
 
-    localStorage.setItem(
-      "skills",
-      JSON.stringify(updated)
-    );
-  };
+  //   localStorage.setItem(
+  //     "skills",
+  //     JSON.stringify(updated)
+  //   );
+  // };
+
+
+  // after DB connection 
+
+  const handleDelete =
+    async (id) => {
+
+      try {
+
+        const token =
+          localStorage.getItem("token");
+
+        await deleteSkill(id, token);
+
+        setSkills(
+
+          skills.filter(
+            (item) => item._id !== id
+          )
+
+        );
+
+      } catch (error) {
+
+        console.log(error);
+
+      }
+
+    };
 
   return (
 
@@ -72,11 +133,13 @@ function SkillList() {
 
           <div
             className="skill-card"
-            key={index}
+            // key={index}
+            key={item._id}
           >
 
             <img
-              src={item.image}
+              // src={item.image}
+              src={`http://localhost:3000/uploads/${item.image}`}
               alt="skill"
               className="skill-image"
             />
@@ -92,7 +155,8 @@ function SkillList() {
               <button
                 className="delete-btn"
                 onClick={() =>
-                  handleDelete(index)
+                  // handleDelete(index)
+                  handleDelete(item._id)
                 }
               >
                 Delete
@@ -101,7 +165,10 @@ function SkillList() {
               <button
                 className="edit-project-btn"
                 onClick={() =>
-                  navigate(`/admin/edit-skill/${index}`)
+                  // navigate(`/admin/edit-skill/${index}`)
+                  navigate(
+                    `/admin/edit-skill/${item._id}`
+                  )
                 }
               >
                 Edit
