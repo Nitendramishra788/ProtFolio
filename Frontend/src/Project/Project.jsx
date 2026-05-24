@@ -43,9 +43,11 @@ function ProjectSection() {
   // ];
 
   return ( 
-    <div className="project-section container">
-
-      <h2 className="text-center mb-4">My Projects</h2>
+        <div className="RightMain">
+          <div className="project-section container">
+     <hr></hr>
+      <h2 className="text-center mb-0">My Projects</h2>
+      <hr></hr>
 
       <div className="row">
         {projects.map((item) => (
@@ -69,6 +71,8 @@ function ProjectSection() {
       </div>
 
     </div>
+        </div>
+    
   );
 }
 

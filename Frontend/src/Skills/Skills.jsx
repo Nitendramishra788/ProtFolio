@@ -1,41 +1,39 @@
-// Skills.jsx
-
-import React from "react";
 
 
-const dummySkills = [
-  {
-    image:
-      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop",
-    description:
-      "Modern frontend development using React.js with premium UI interactions and smooth animations.",
-  },
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-  {
-    image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
-    description:
-      "Building scalable backend systems with Node.js, Express.js, and MongoDB integration.",
-  },
-
-  {
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-    description:
-      "Creating futuristic portfolio experiences with glassmorphism and neon UI effects.",
-  },
-
-  {
-    image:
-      "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=1200&auto=format&fit=crop",
-    description:
-      "Responsive web applications optimized for performance and smooth user experience.",
-  },
-];
 
 const Skills = () => {
+
+  const [skills, setSkills] = useState([]);
+
+  useEffect(() => {
+
+    const fetchSkills = async () => {
+
+      try {
+
+        const { data } = await axios.get(
+          "http://localhost:3000/api/skills"
+        );
+
+        setSkills(data.skills);
+
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSkills();
+
+  }, []);
+
+  // const loopSkills = [...skills, ...skills];
+
   return (
-    <section className="skills-section">
+
+    <div className="RightMain">
 
       <div className="skills-container">
 
@@ -69,7 +67,7 @@ const Skills = () => {
 
         <div className="skills-right">
 
-          {dummySkills.map((skill, index) => (
+          {skills.map((skill, index) => (
 
             <div
               className="skill-card"
@@ -83,8 +81,8 @@ const Skills = () => {
               <div className="skill-image">
 
                 <img
-                  src={skill.image}
-                  alt="skill"
+                  src={`http://localhost:3000/uploads/${skill.image}`}
+                  alt={skill.title}
                 />
 
               </div>
@@ -92,7 +90,7 @@ const Skills = () => {
               <div className="skill-content">
 
                 <p>
-                  {skill.description}
+                  {skill.title}
                 </p>
 
               </div>
@@ -104,7 +102,9 @@ const Skills = () => {
         </div>
 
       </div>
-    </section>
+
+    </div>
+
   );
 };
 
