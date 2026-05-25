@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { createProject } from "../services/ProjectService";
 
 function AddProject() {
 
   const navigate = useNavigate();
 
   const [project, setProject] = useState({
-    image: "",
+
     title: "",
     description: "",
     live: "",
     code: "",
   });
+
+  const [image, setImage] = useState(null);
 
   const handleChange = (e) => {
     setProject({
@@ -20,23 +23,24 @@ function AddProject() {
     });
   };
 
-  const handleSubmit = (e) => {
+  // handle Image
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+  }
+
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
-    const oldProjects =
-      JSON.parse(localStorage.getItem("projects")) || [];
+    const formData = new FormData();
+    formData.append("title", project.title);
+    formData.append("description", project.description);
+    formData.append("live", project.live);
+    formData.append("code", project.code);
+    formData.append("image", image);
 
-    const updatedProjects = [
-      ...oldProjects,
-      project,
-    ];
-
-    localStorage.setItem(
-      "projects",
-      JSON.stringify(updatedProjects)
-    );
-
+    await createProject(formData);
     alert("Project Added");
 
     navigate("/admin/projects");
@@ -73,10 +77,9 @@ function AddProject() {
           ></textarea>
 
           <input
-            type="text"
+            type="file"
             name="image"
-            placeholder="Image URL"
-            onChange={handleChange}
+            onChange={handleImageChange}
             className="custom-input"
           />
 

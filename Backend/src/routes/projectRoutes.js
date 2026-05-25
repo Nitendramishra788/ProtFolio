@@ -29,15 +29,16 @@ router.get(
 router.post(
     "/",
     authMiddleware,
-     upload.single("image"),
+    upload.single("image"),
     CreateProject,
-   
+
 );
 
 // update project route
 router.put(
     "/:id",
     authMiddleware,
+    upload.single("image"),
     updatedProject
 );
 

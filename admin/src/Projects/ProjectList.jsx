@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  getProjects, 
+  deleteProject
+}  from "../services/ProjectService";
 
 function ProjectList() {
 
@@ -9,26 +13,64 @@ function ProjectList() {
 
   useEffect(() => {
 
-    const data =
-      JSON.parse(localStorage.getItem("projects")) || [];
+    // this is part of storing data in local store 
+    // const data =
+    //   JSON.parse(localStorage.getItem("projects")) || [];
 
-    setProjects(data);
+    // part of DataBase
+
+    const fetchProjects = async ()=>{
+      try{
+        const data = await getProjects();
+
+        setProjects(data);
+      }catch(error){
+        console.log(error);
+      }
+    }
+
+    // this is using for localStorage function
+    // setProjects(data);
+
+    fetchProjects();
 
   }, []);
+  
 
-  const handleDelete = (index) => {
+const handleDelete =
+async (id) => {
 
-    const updated =
-      projects.filter((_, i) => i !== index);
+  try {
 
-    setProjects(updated);
+    const token =
+      localStorage.getItem("token");
 
-    localStorage.setItem(
-      "projects",
-      JSON.stringify(updated)
+    await deleteProject(
+      id,
+      token
     );
-  };
 
+    setProjects(
+
+      projects.filter(
+        (item) =>
+          item._id !== id
+      )
+
+    );
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
+
+ 
+
+    
+ 
   return (
 
     <div className="project-list-page">
@@ -47,10 +89,10 @@ function ProjectList() {
 
         {projects.map((item, index) => (
 
-          <div className="project-card" key={index}>
+          <div className="project-card" key={item._id}>
 
             <img
-              src={item.image}
+              src={`http://localhost:3000/uploads/${item.image}`}
               alt="project"
               className="project-image"
             />
@@ -89,7 +131,7 @@ function ProjectList() {
 
                 <button
                   className="delete-btn"
-                  onClick={() => handleDelete(index)}
+                  onClick={() => handleDelete(item._id)}
                 >
                   Delete
                 </button>
@@ -97,7 +139,7 @@ function ProjectList() {
                 <button
                   className="edit-project-btn"
                   onClick={() =>
-                    navigate(`/admin/edit-project/${index}`)
+                    navigate(`/admin/edit-project/${item._id}`)
                   }
                 >
                   Edit

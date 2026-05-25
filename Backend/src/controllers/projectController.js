@@ -4,10 +4,10 @@ const asyncHandler = require("../middlewares/asyncHandler");
 // create project 
 
 const CreateProject = asyncHandler(
-    async(req , res)=>{
+    async (req, res) => {
 
         const {
-           
+
             title,
             description,
             live,
@@ -34,118 +34,122 @@ const CreateProject = asyncHandler(
         });
     });
 
-    // get all projects
+// get all projects
 
-    const getProjects = asyncHandler(
-        async(req , res)=>{
-            const Projects = await Project.find();
+const getProjects = asyncHandler(
+    async (req, res) => {
+        const Projects = await Project.find();
 
-            res.status(200).json({
-                success: true,
-                count: Projects.length,
-                Projects,
-            });
-        }
-    );
+        res.status(200).json({
+            success: true,
+            count: Projects.length,
+            Projects,
+        });
+    }
+);
 
 
-    // get single project using by id
+// get single project using by id
 
-    const getSingleProject = asyncHandler(
-        async(req , res)=>{
-            const project = await Project.findById(req.params.id);
+const getSingleProject = asyncHandler(
+    async (req, res) => {
+        const project = await Project.findById(req.params.id);
 
-            // check if project exists or not
+        // check if project exists or not
 
-            if(!project){
-                return res.status(404).json({
-                    success: false,
-                    message: "Project not found",
-                })
-            }
-
-            res.status(200).json({
-                success: true,
-                project,
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: "Project not found",
             })
         }
 
-
-    )
-
-    // update project by id
-
-    const updatedProject = asyncHandler(
-        async(req , res)=>{
-            const project = await Project.findById(
-                req.params.id
-            )
-
-            // check if project exists or not
-
-            if(!project){
-                return res.status(404).json({
-                    success: false,
-                    message: "Project not found",
-                })
-            }
-
-                // update project
-
-               project.image = req.body.image || project.image;
-               project.title = req.body.title || project.title;
-               project.description = req.body.description || project.description;
-               project.live = req.body.live || project.live;
-               project.code = req.body.code || project.code;
-
-            //    save project
-            await project.save();
-
-            res.status(200).json({
-                success: true,
-                message: "Project updated successfully",
-                project: updatedProject,
-            });
-        }
-    );
+        res.status(200).json({
+            success: true,
+            project,
+        })
+    }
 
 
-    // delete project by id
+)
 
-    const deletedProject = asyncHandler(
-        async(req , res)=>{
-            const project= await Project.findById(
-                req.params.id
-            )
+// update project by id
 
-            // check if project exists or not
+const updatedProject = asyncHandler(
+    async (req, res) => {
+        const project = await Project.findById(
+            req.params.id
+        )
 
-            if(!project){
-                return res.status(404).json({
-                    success: false,
-                    message: "Project not found",
-                })
-            }
+        // check if project exists or not
 
-            // delete project
-            await project.deleteOne();
-
-            res.status(200).json({
-                success: true,
-                message: "Project deleted successfully",
-
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: "Project not found",
             })
-
-            
         }
-    );
+
+        // update project
+
+        if (req.file) {
+            project.image = req.file.filename;
+        }
+
+        //    project.image = req.body.image || project.image;
+        project.title = req.body.title || project.title;
+        project.description = req.body.description || project.description;
+        project.live = req.body.live || project.live;
+        project.code = req.body.code || project.code;
+
+        //    save project
+        await project.save();
+
+        res.status(200).json({
+            success: true,
+            message: "Project updated successfully",
+            project: updatedProject,
+        });
+    }
+);
+
+
+// delete project by id
+
+const deletedProject = asyncHandler(
+    async (req, res) => {
+        const project = await Project.findById(
+            req.params.id
+        )
+
+        // check if project exists or not
+
+        if (!project) {
+            return res.status(404).json({
+                success: false,
+                message: "Project not found",
+            })
+        }
+
+        // delete project
+        await project.deleteOne();
+
+        res.status(200).json({
+            success: true,
+            message: "Project deleted successfully",
+
+        })
+
+
+    }
+);
 
 
 
-    module.exports = {
+module.exports = {
     CreateProject,
     getProjects,
     getSingleProject,
     updatedProject,
     deletedProject,
-    }
+}

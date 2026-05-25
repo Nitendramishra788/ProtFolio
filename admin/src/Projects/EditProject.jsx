@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {
+  getSingleProject,
+  updateProject,
+} from "../services/ProjectService";
 
 import {
   useParams,
@@ -14,21 +18,31 @@ function EditProject() {
   const [project, setProject] = useState({
     title: "",
     description: "",
-    image: "",
+ 
     live: "",
     code: "",
   });
 
+const [image, setImage] = useState(null);
+
   useEffect(() => {
 
-    const data =
-      JSON.parse(localStorage.getItem("projects")) || [];
+    const fetchProject = async () => {
 
-    const index = Number(id);
+      try {
 
-    if (data[index]) {
-      setProject(data[index]);
-    }
+  const data = await getSingleProject(id);
+
+  setProject(data);
+
+} catch (error) {
+
+  console.log(error);
+
+}
+
+};
+    fetchProject();
 
   }, [id]);
 
@@ -40,23 +54,33 @@ function EditProject() {
     });
   };
 
-  const handleSubmit = (e) => {
+  // handle Image
+  const handleImageChange = (e) => {
+
+  setImage(e.target.files[0]);
+
+};
+
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
-    const data =
-      JSON.parse(localStorage.getItem("projects")) || [];
+    const formData = new FormData();
 
-    const index = Number(id);
+formData.append("title", project.title);
+formData.append("description", project.description);
+formData.append("live", project.live);
+formData.append("code", project.code);
 
-    data[index] = project;
+if (image) {
+  formData.append("image", image);
+}
 
-    localStorage.setItem(
-      "projects",
-      JSON.stringify(data)
-    );
 
-    alert("Project Updated ✅");
+await updateProject(id, formData);
+  
+
+    alert("Project Updated ");
 
     navigate("/admin/projects");
   };
@@ -94,11 +118,9 @@ function EditProject() {
           ></textarea>
 
           <input
-            type="text"
+            type="file"
             name="image"
-            value={project.image || ""}
-            onChange={handleChange}
-            placeholder="Image URL"
+            onChange={handleImageChange}
             className="custom-input"
           />
 
