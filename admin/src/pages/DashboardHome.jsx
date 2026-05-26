@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { getProjects } from "../services/ProjectService";
+import { getSkills } from "../services/SkillService";
+import { getProfile } from "../services/ProfileService";
 
 function DashboardHome() {
 
@@ -9,20 +12,48 @@ function DashboardHome() {
   const [totalProjects, setTotalProjects] = useState(0);
   const [totalSkills, setTotalSkills] = useState(0);
 
+  const fetchDashboardData = async () => {
+
+    try {
+
+      const profileData = await getProfile();
+
+      const projectsData = await getProjects();
+
+      const skillsData = await getSkills();
+
+      setProfile(profileData);
+
+      setTotalProjects(projectsData.length);
+
+      setTotalSkills(skillsData.length);
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+
+  };
+
   useEffect(() => {
 
-    const profileData =
-      JSON.parse(localStorage.getItem("profile")) || {};
+    // const profileData =
+    //   JSON.parse(localStorage.getItem("profile")) || {};
 
-    const projects =
-      JSON.parse(localStorage.getItem("projects")) || [];
+    // const projects =
+    //   JSON.parse(localStorage.getItem("projects")) || [];
 
-    const skills =
-      JSON.parse(localStorage.getItem("skills")) || [];
+    // const skills =
+    //   JSON.parse(localStorage.getItem("skills")) || [];
 
-    setProfile(profileData);
-    setTotalProjects(projects.length);
-    setTotalSkills(skills.length);
+    // setProfile(profileData);
+    // setTotalProjects(projects.length);
+    // setTotalSkills(skills.length);
+
+    // here stop local Storage service
+
+    fetchDashboardData();
 
   }, []);
 
@@ -39,7 +70,11 @@ function DashboardHome() {
           <div className="profile-image-box">
 
             <img
-              src={profile.image || "/default.png"}
+              src={
+                profile.image
+                  ? `http://localhost:3000/uploads/${profile.image}`
+                  : "/default.png"
+              }
               alt="profile"
               className="profile-image"
             />

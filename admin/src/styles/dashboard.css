@@ -142,7 +142,9 @@
   width: 280px;
   height: 280px;
   border-radius: 50%;
-  object-fit: cover;
+  /* object-fit: cover; */
+  object-fit: contain;
+  overflow: hidden;
 }
 
 .edit-btn{
