@@ -1,4 +1,4 @@
-
+![Portfolio Banner](./thumbnail.png)
 # 🚀 Portfolio - Full Stack MERN Portfolio & Admin Dashboard
 
 A modern full-stack portfolio web application with a powerful admin dashboard built using the MERN Stack.
