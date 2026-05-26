@@ -1,4 +1,9 @@
 import { useState, useEffect } from 'react';
+import {
+  getMessage,
+  toggleMessageStatus,
+  deleteMeggage
+}  from "../services/MessageService";
 
 function MessageList() {
     const [messages , setMessages] = useState([]);
@@ -6,17 +11,41 @@ function MessageList() {
     const [currentFilter , setCurrentFilter] = useState("all");
 
     // now we will fetch the messages from local storage
-    useEffect(() => {
-        const storedMessages = JSON.parse(localStorage.getItem("messages")) || [];
-        // now we will keep top messages at top
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setMessages(storedMessages.reverse());
-    }, []);
+    // useEffect(() => {
+    //     const storedMessages = JSON.parse(localStorage.getItem("messages")) || [];
+    //     // now we will keep top messages at top
+    //     // eslint-disable-next-line react-hooks/set-state-in-effect
+    //     setMessages(storedMessages.reverse());
+    // }, []);
+
+    // here Stop local storage service
+
+  // here start DataBase service 
+
+  const fetchMessage = async() =>{
+
+    try{
+      const data = await getMessage();
+
+      setMessages(data);
+    }catch(error){
+      console.log(error);
+    }
+
+  }   
+
+ 
+  useEffect(()=>{
+
+   fetchMessage();
+
+},[]);
+    
 
     // now we will delete the message from local storage
 
 
-    const handleDelete = (index) =>{
+    const handleDelete = async (index) =>{
        
         const confirmDelete = window.confirm("Are you sure you want to delete this message?");
 
@@ -24,27 +53,47 @@ function MessageList() {
         if(!confirmDelete) return;
         const updatedMessages = messages.filter((_, i)=> i !== index);
         // now after deleting we need to again arange the messages 
-        localStorage.setItem(
-            "messages",
-            JSON.stringify(updatedMessages.reverse())
+        // localStorage.setItem(
+        //     "messages",
+        //     JSON.stringify(updatedMessages.reverse())
             
-        );
-        setMessages(updatedMessages);
+        // );
+        // setMessages(updatedMessages);
+
+        // here stop localStorage service
+
+        // here start Database service
+
+        const messageId = messages[index]._id;
+
+        await deleteMeggage(messageId);
+
+        fetchMessage();
     };
 
     // now we will create togggle read status of the message
 
-    const toggleReadStatus = (index)=>{
-        const updatedMessages = [...messages];
+    const toggleReadStatus = async (index)=>{
+        // const updatedMessages = [...messages];
 
-        updatedMessages[index].isRead= !updatedMessages[index].isRead;
+        // updatedMessages[index].isRead= !updatedMessages[index].isRead;
 
-        // now we will again update the local storage and arrange the messages
-        localStorage.setItem(
-            "messages", 
-            JSON.stringify(updatedMessages.reverse())
-        );
-        setMessages(updatedMessages);
+        // // now we will again update the local storage and arrange the messages
+        // localStorage.setItem(
+        //     "messages", 
+        //     JSON.stringify(updatedMessages.reverse())
+        // );
+        // setMessages(updatedMessages);
+
+        // here stop localStorage service
+
+
+        // here start Database service
+
+        const messageId = messages[index]._id;
+
+        await toggleMessageStatus(messageId);
+        fetchMessage();
         
     };
 
