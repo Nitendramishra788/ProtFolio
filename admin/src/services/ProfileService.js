@@ -11,3 +11,4 @@ export const getProfile = async ()=>{
 
     return data.profile;
 };
+

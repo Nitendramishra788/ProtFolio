@@ -5,6 +5,8 @@ const Admin = require("../models/Admin");
 const generateToken = require("../utils/generateToken");
 
 const asyncHandler = require("../middlewares/asyncHandler");
+const message = require("../models/message");
+
 
 const loginAdmin = asyncHandler(async (req, res) => {
 

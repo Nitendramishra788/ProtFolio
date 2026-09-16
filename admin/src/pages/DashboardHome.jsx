@@ -22,7 +22,7 @@ function DashboardHome() {
 
       const skillsData = await getSkills();
 
-      setProfile(profileData);
+      setProfile(profileData || {});
 
       setTotalProjects(projectsData.length);
 
@@ -37,19 +37,6 @@ function DashboardHome() {
   };
 
   useEffect(() => {
-
-    // const profileData =
-    //   JSON.parse(localStorage.getItem("profile")) || {};
-
-    // const projects =
-    //   JSON.parse(localStorage.getItem("projects")) || [];
-
-    // const skills =
-    //   JSON.parse(localStorage.getItem("skills")) || [];
-
-    // setProfile(profileData);
-    // setTotalProjects(projects.length);
-    // setTotalSkills(skills.length);
 
     // here stop local Storage service
 

@@ -3,6 +3,8 @@ import React, {
   useEffect,
 } from "react";
 
+import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
 
 function ProfileEdit() {
@@ -17,18 +19,26 @@ function ProfileEdit() {
     message: "",
   });
 
+  const [image, setImage] = useState(null);
+
   useEffect(() => {
 
-    const data =
-      JSON.parse(localStorage.getItem("profile")) || {};
 
-    setProfile({
-      name: data.name || "",
-      age: data.age || "",
-      image: data.image || "",
-      about: data.about || "",
-      message: data.message || "",
-    });
+    const fetchProfile = async () => {
+      try {
+        const { data } = await axios.get(
+          "http://localhost:3000/api/profile"
+        );
+
+        if (data.profile) {
+          setProfile(data.profile);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProfile();
 
   }, []);
 
@@ -40,18 +50,54 @@ function ProfileEdit() {
     });
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
 
+  //   e.preventDefault();
+
+  //   localStorage.setItem(
+  //     "profile",
+  //     JSON.stringify(profile)
+  //   );
+
+  //   alert("Profile Updated ✅");
+
+  //   navigate("/admin");
+  // };
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    localStorage.setItem(
-      "profile",
-      JSON.stringify(profile)
-    );
+    try {
+      const token = localStorage.getItem("token");
 
-    alert("Profile Updated ✅");
+      const formData = new FormData();
 
-    navigate("/admin");
+      formData.append("name", profile.name);
+      formData.append("age", profile.age);
+      formData.append("about", profile.about);
+      formData.append("message", profile.message);
+
+      if (image) {
+        formData.append("image", image);
+      }
+
+      await axios.put(
+        "http://localhost:3000/api/profile",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      alert("Profile Updated ✅");
+      navigate("/admin");
+    } catch (error) {
+      console.log(error);
+      alert("Profile update failed ");
+    }
   };
 
   return (
@@ -87,12 +133,19 @@ function ProfileEdit() {
             className="custom-input"
           />
 
-          <input
+          {/* <input
             type="text"
             name="image"
             value={profile.image || ""}
             onChange={handleChange}
             placeholder="Profile Image URL"
+            className="custom-input"
+          /> */}
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
             className="custom-input"
           />
 

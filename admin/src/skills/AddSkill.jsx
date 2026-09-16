@@ -16,15 +16,7 @@ function AddSkill() {
     image: null,
   });
 
-  // const handleChange = (e) => {
-
-    
-
-  //   setSkill({
-  //     ...skill,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+ 
 
   const handleChange = (e) => {
 
@@ -57,27 +49,7 @@ function AddSkill() {
 };
 
 
-  // const handleSubmit = (e) => {
-
-  //   e.preventDefault();
-
-  //   const oldSkills =
-  //     JSON.parse(localStorage.getItem("skills")) || [];
-
-  //   const updated = [
-  //     ...oldSkills,
-  //     skill,
-  //   ];
-
-  //   localStorage.setItem(
-  //     "skills",
-  //     JSON.stringify(updated)
-  //   );
-
-  //   alert("Skill Added ✅");
-
-  //   navigate("/admin/skills");
-  // };
+ 
 
 
   const handleSubmit =
