@@ -6,8 +6,7 @@ const sendEmail = async (
     message
 ) => {
 
-      console.log(process.env.EMAIL_USER);
-    console.log(process.env.EMAIL_PASS);
+    
 
     // transporter
 
@@ -22,7 +21,8 @@ const sendEmail = async (
 
             auth: {
                 user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
+                pass: process.env.EMAIL_PASS,
+                // secure:false
             }
 
         });
@@ -63,9 +63,21 @@ const sendEmail = async (
 
     // send email
 
+    try{
+
+    
     await transporter.sendMail(
         mailOptions
     );
+     console.log("Email sent successfully");
+
+}catch(err){
+
+     console.log(err);
+
+    throw err;
+}
+    
 
 };
 
