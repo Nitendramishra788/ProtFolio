@@ -4,6 +4,10 @@ const asyncHandler = require(
   "../middlewares/asyncHandler"
 );
 
+const {
+  uploadToCloudinary ,
+} = require("../utils/cloudinaryService");
+
 // CREATE OR UPDATE PROFILE
 const createOrUpdateProfile =
   asyncHandler(async (req, res) => {
@@ -15,10 +19,20 @@ const createOrUpdateProfile =
       message,
     } = req.body;
 
-    // uploaded image
-    const image = req.file
-      ? req.file.filename
-      : null;
+    // // uploaded image
+    // const image = req.file
+    //   ? req.file.filename
+    //   : null;
+
+    // setup of cloudinary 
+
+    let  image = null;
+    if(req.file){
+      const result = await  uploadToCloudinary(req.file.buffer);
+       
+        
+      image = result.secure_url;
+    };
 
     // check existing profile
     let profile =

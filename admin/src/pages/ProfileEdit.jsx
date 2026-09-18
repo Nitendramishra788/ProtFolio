@@ -92,7 +92,7 @@ function ProfileEdit() {
         }
       );
 
-      alert("Profile Updated ✅");
+      alert("Profile Updated");
       navigate("/admin");
     } catch (error) {
       console.log(error);

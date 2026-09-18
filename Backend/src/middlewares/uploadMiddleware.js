@@ -3,20 +3,24 @@ const path = require('path');
 
 // storage configuration for multer
 
-const storage = multer.diskStorage({
-    destination: function(req , file , cd){
-        cd(null , "src/uploads");
-    },
+// const storage = multer.diskStorage({
+//     destination: function(req , file , cd){
+//         cd(null , "src/uploads");
+//     },
 
-    filename: function(req , file , cd){
+//     filename: function(req , file , cd){
 
-        const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
-        cd(null , uniqueName);  
+//         const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9) + path.extname(file.originalname);
+//         cd(null , uniqueName);  
         
 
-    }
-});
+//     }
+// });
 
+// this Entire part of code which is multer.diskStorage it's store data local but now we need store data in cloud
+
+
+const storage = multer.memoryStorage();
 
 // filter for uploaded files
 
