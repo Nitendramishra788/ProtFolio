@@ -28,10 +28,11 @@ const createOrUpdateProfile =
 
     let  image = null;
     if(req.file){
+
       const result = await  uploadToCloudinary(req.file.buffer);
-       
         
       image = result.secure_url;
+
     };
 
     // check existing profile

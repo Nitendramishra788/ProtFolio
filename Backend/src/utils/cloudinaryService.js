@@ -1,27 +1,17 @@
 const cloudinary = require("../config/cloudinary");
-const { Readable } = require("stream");
 
-const uploadToCloudinary = (buffer) => {
-    // upload logic
+const uploadToCloudinary = async (buffer) => {
 
-    return new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-            {
-                folder: "portfolio"
-            },
+    const result = await cloudinary.uploader.upload(
+        `data:image/jpeg;base64,${buffer.toString("base64")}`,
+        {
+            folder: "portfolio",
+        }
+    );
 
-            (err, result) => {
-                if (err) {
-                    reject(err);
-                }
-                else {
-                    resolve(result);
-                }
-            }
-        );
 
-        Readable.from(buffer).pipe(uploadStream);
-    });
+
+    return result;
 };
 
 module.exports = {

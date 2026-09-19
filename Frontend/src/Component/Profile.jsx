@@ -26,7 +26,7 @@ function Profile() {
         {/* Image */}
         <div className="col-lg-6 col-12 text-center">
           <img
-            src={`http://localhost:3000/uploads/${profile?.image}`}
+             src={profile?.image}
             className="rounded profile-img"
             alt="Profile pic"
           />

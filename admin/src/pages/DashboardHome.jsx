@@ -57,11 +57,7 @@ function DashboardHome() {
           <div className="profile-image-box">
 
             <img
-              src={
-                profile.image
-                  ? `http://localhost:3000/uploads/${profile.image}`
-                  : "/default.png"
-              }
+              src={profile.image}
               alt="profile"
               className="profile-image"
             />
