@@ -139,7 +139,7 @@ function SkillList() {
 
             <img
               // src={item.image}
-              src={`http://localhost:3000/uploads/${item.image}`}
+              src={item?.image}
               alt="skill"
               className="skill-image"
             />

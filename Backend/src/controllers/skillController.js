@@ -1,14 +1,24 @@
 const Skill = require("../models/skills");
 const asyncHandler = require("../middlewares/asyncHandler");
-
+const { uploadToCloudinary } = require("../utils/cloudinaryService");
 
 // create a new skill
 
 const createSkill = asyncHandler(
-    async(req ,res)=>{
-        const {title} = req.body;
-        // upload image 
-        const image = req.file.filename;
+    async (req, res) => {
+        const { title } = req.body;
+
+
+        // // upload image 
+        // const image = req.file.filename;
+
+        let image = null;
+
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer);
+
+            image = result.secure_url;
+        };
 
         // create skill
         const skill = await Skill.create({
@@ -17,8 +27,8 @@ const createSkill = asyncHandler(
         });
 
         res.status(201).json({
-            success:true,
-            messsage:"Skill created successfully",
+            success: true,
+            messsage: "Skill created successfully",
             skill
         })
     }
@@ -27,11 +37,11 @@ const createSkill = asyncHandler(
 // get all skills
 
 const getAllSkills = asyncHandler(
-    async(req, res)=>{
+    async (req, res) => {
         const skills = await Skill.find();
 
         res.status(200).json({
-            success:true,
+            success: true,
             count: skills.length,
             skills
         })
@@ -43,22 +53,22 @@ const getAllSkills = asyncHandler(
 // get single skill by id
 
 const getSingleSkill = asyncHandler(
-    async(req, res)=>{
+    async (req, res) => {
         const skill = await Skill.findById(
             req.params.id
         )
 
         // check if skill exists or not
 
-        if(!skill){
-            return  res.status(404).json({
-                success:false,
-                message:"Skill not found"
+        if (!skill) {
+            return res.status(404).json({
+                success: false,
+                message: "Skill not found"
             })
         }
 
         res.status(200).json({
-            success:true,
+            success: true,
             skill
         })
     }
@@ -68,7 +78,7 @@ const getSingleSkill = asyncHandler(
 // update skill by id
 
 const updatedSkill = asyncHandler(
-    async(req , res)=>{
+    async (req, res) => {
 
         const skill = await Skill.findById(
             req.params.id
@@ -76,31 +86,38 @@ const updatedSkill = asyncHandler(
 
         // check if skill exists
 
-        if(!skill){
+        if (!skill) {
             return res.status(404).json({
-                success:false,
-                message:"Skill not found"
+                success: false,
+                message: "Skill not found"
             });
         }
 
-        // update image
+        // // update image
 
-        if(req.file){
-            skill.image = req.file.filename;
-        }
 
-        // update title
+
+        let image = null;
+
+        if (req.file) {
+            const result = await uploadToCloudinary(req.file.buffer);
+            image = result.secure_url;
+        };
 
         skill.title =
             req.body.title || skill.title;
+
+        if (image) {
+            skill.image = image;
+        }
 
         // save
 
         await skill.save();
 
         res.status(200).json({
-            success:true,
-            message:"Skill updated successfully",
+            success: true,
+            message: "Skill updated successfully",
             skill
         });
 
@@ -110,27 +127,27 @@ const updatedSkill = asyncHandler(
 // delete skill by id
 
 const deleteSkill = asyncHandler(
-    async(req , res)=>{
+    async (req, res) => {
         const skill = await Skill.findById(
             req.params.id
         )
 
         // check if skill exists or not
 
-        if(!skill){
+        if (!skill) {
             return res.status(404).json({
-                success:false,
-                message:"Skill not found"
+                success: false,
+                message: "Skill not found"
 
             })
         }
 
         // delete skill
-      await skill.deleteOne();
+        await skill.deleteOne();
 
         res.status(200).json({
-            success:true,
-            message:"Skill deleted successfully"
+            success: true,
+            message: "Skill deleted successfully"
         })
     }
 )
@@ -141,6 +158,6 @@ module.exports = {
     createSkill,
     getAllSkills,
     getSingleSkill,
-    updatedSkill,   
-    deleteSkill 
+    updatedSkill,
+    deleteSkill
 }

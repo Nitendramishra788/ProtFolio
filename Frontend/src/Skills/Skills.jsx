@@ -81,7 +81,7 @@ const Skills = () => {
               <div className="skill-image">
 
                 <img
-                  src={`http://localhost:3000/uploads/${skill.image}`}
+                  src={skill.image}
                   alt={skill.title}
                 />
 
