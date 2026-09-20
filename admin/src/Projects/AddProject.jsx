@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProject } from "../services/ProjectService";
+import toast from "react-hot-toast";
 
 function AddProject() {
 
   const navigate = useNavigate();
+  const [loading , setLoading] = useState(false);
 
   const [project, setProject] = useState({
 
@@ -32,7 +34,9 @@ function AddProject() {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+    setLoading(true);
 
+    try{
     const formData = new FormData();
     formData.append("title", project.title);
     formData.append("description", project.description);
@@ -41,9 +45,15 @@ function AddProject() {
     formData.append("image", image);
 
     await createProject(formData);
-    alert("Project Added");
+    // alert("Project Added");
+    toast.success("New project add successfuly")
 
     navigate("/admin/projects");
+
+    }finally{
+      setLoading(false);
+    }
+
   };
 
   return (
@@ -102,8 +112,9 @@ function AddProject() {
           <button
             type="submit"
             className="submit-btn"
+            disabled={loading}
           >
-            Add Project
+            {loading? "Adding Project...":"Add Project"}
           </button>
 
         </form>

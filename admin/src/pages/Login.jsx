@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 function Login() {
   const { login } = useAuth();
@@ -34,9 +35,11 @@ function Login() {
 
       navigate("/admin");
 
+      toast.success("Admin login successfuly")
+
     } catch (error) {
       console.log(error);
-      alert("Invalid Credentials");
+      toast.error("Invalid Credentials");
     }
   };
 

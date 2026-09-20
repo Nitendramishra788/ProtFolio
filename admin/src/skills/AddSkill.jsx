@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
+
 import { useNavigate } from "react-router-dom";
 import {
   createSkill
@@ -10,6 +11,7 @@ from "../services/SkillService";
 function AddSkill() {
 
   const navigate = useNavigate();
+  const [loading , setLoading] = useState(false);
 
   const [skill, setSkill] = useState({
     title: "",
@@ -57,6 +59,7 @@ function AddSkill() {
 async (e) => {
 
   e.preventDefault();
+  setLoading(true);
 
   try {
 
@@ -85,7 +88,7 @@ async (e) => {
     toast.success("skill created succesfull");
 
     navigate("/admin/skills");
-
+    setLoading(false);
   } catch (error) {
     toast.error("Failed to created skill");
     console.log(error);
@@ -128,8 +131,9 @@ async (e) => {
           <button
             type="submit"
             className="submit-btn"
+            disabled={loading}
           >
-            Add Skill
+            {loading?"processing ":"Add Skill"}
           </button>
 
         </form>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 import {
   getSingleProject,
   updateProject,
@@ -14,6 +15,7 @@ function EditProject() {
   const { id } = useParams();
 
   const navigate = useNavigate();
+  const [loading , setLoading] = useState(false);
 
   const [project, setProject] = useState({
     title: "",
@@ -64,6 +66,9 @@ const [image, setImage] = useState(null);
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+    setLoading(true);
+
+    try{
 
     const formData = new FormData();
 
@@ -80,10 +85,15 @@ if (image) {
 await updateProject(id, formData);
   
 
-    alert("Project Updated ");
-
+    // alert("Project Updated ");
+  toast.success("Your project info updated")
     navigate("/admin/projects");
-  };
+
+}finally{
+  setLoading(false);
+};
+
+  }
 
   return (
 
@@ -145,8 +155,9 @@ await updateProject(id, formData);
           <button
             type="submit"
             className="submit-btn"
+            disabled={loading}
           >
-            Update Project
+            {loading?"processing":"Update Project"}
           </button>
 
         </form>

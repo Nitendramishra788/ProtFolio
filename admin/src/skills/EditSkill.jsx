@@ -1,6 +1,7 @@
 import React, {
   useState,
   useEffect,
+  use,
 } from "react";
 
 import axios from "axios";
@@ -22,23 +23,14 @@ function EditSkill() {
   const { id } = useParams();
 
   const navigate = useNavigate();
-
+  const [loading , setLoading] = useState(false);
   const [skill, setSkill] = useState({
     title: "",
     // image: "",
     image: null,
   });
 
-  // useEffect(() => {
-
-  //   const data =
-  //     JSON.parse(localStorage.getItem("skills")) || [];
-
-  //   if (data[id]) {
-  //     setSkill(data[id]);
-  //   }
-
-  // }, [id]);
+ 
 
   useEffect(() => {
 
@@ -122,6 +114,8 @@ function EditSkill() {
 
       e.preventDefault();
 
+      setLoading(true);
+
       try {
 
         const token =
@@ -157,7 +151,7 @@ function EditSkill() {
         toast.success("skill updated successfully");
 
         navigate("/admin/skills");
-
+        setLoading(false);
       } catch (error) {
         toast.error("Failed to update skill");
         console.log(error);
@@ -209,8 +203,9 @@ function EditSkill() {
           <button
             type="submit"
             className="submit-btn"
+            disabled={loading}
           >
-            Update Skill
+            {loading?"processing":"Update Skill"}
           </button>
 
         </form>

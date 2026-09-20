@@ -9,6 +9,8 @@ function Hero() {
     email: "",
     message: ""
   });
+  
+  const [loading , setLoading] = useState(false);
 
   // change handle state
 
@@ -24,7 +26,7 @@ function Hero() {
 
   const handleSubmit  = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const { data } = await axios.post(
         "http://localhost:3000/api/messages",
@@ -44,7 +46,7 @@ function Hero() {
         message: "",
       });
 
-
+      setLoading(false);
 
     } catch (error) {
       console.log(error);
@@ -112,8 +114,8 @@ function Hero() {
                 rows="5"
               ></textarea>
 
-              <button className="btn btn-outline-light w-100">
-                Send Message
+              <button className="btn btn-outline-light w-100" disabled={loading}>
+                {loading?"Sending....":"Send Message"}
               </button>
 
             </form>

@@ -2,6 +2,7 @@ import React, {
   useState,
   useEffect,
 } from "react";
+import toast from "react-hot-toast";
 
 import axios from "axios";
 
@@ -10,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 function ProfileEdit() {
 
   const navigate = useNavigate();
-
+  const [loading , setLoading] = useState(false);
   const [profile, setProfile] = useState({
     name: "",
     age: "",
@@ -67,7 +68,7 @@ function ProfileEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const token = localStorage.getItem("token");
 
@@ -92,8 +93,10 @@ function ProfileEdit() {
         }
       );
 
-      alert("Profile Updated");
+      // alert("Profile Updated");
+      toast.success("Your profile updated successfuly")
       navigate("/admin");
+      setLoading(false);
     } catch (error) {
       console.log(error);
       alert("Profile update failed ");
@@ -168,8 +171,9 @@ function ProfileEdit() {
           <button
             type="submit"
             className="submit-btn"
+            disabled={loading}
           >
-            Save Profile
+           {loading?"processing..":"Save Profile"}
           </button>
 
         </form>
