@@ -5,20 +5,14 @@ import {
   deleteMeggage
 }  from "../services/MessageService";
 
+import toast from "react-hot-toast";
+
 function MessageList() {
     const [messages , setMessages] = useState([]);
     const [searchTerm , setSearchTerm] = useState("");
     const [currentFilter , setCurrentFilter] = useState("all");
 
-    // now we will fetch the messages from local storage
-    // useEffect(() => {
-    //     const storedMessages = JSON.parse(localStorage.getItem("messages")) || [];
-    //     // now we will keep top messages at top
-    //     // eslint-disable-next-line react-hooks/set-state-in-effect
-    //     setMessages(storedMessages.reverse());
-    // }, []);
-
-    // here Stop local storage service
+   
 
   // here start DataBase service 
 
@@ -48,19 +42,13 @@ function MessageList() {
     const handleDelete = async (index) =>{
        
         const confirmDelete = window.confirm("Are you sure you want to delete this message?");
+        
+        toast.success("your message is deleted")
 
 
         if(!confirmDelete) return;
         const updatedMessages = messages.filter((_, i)=> i !== index);
-        // now after deleting we need to again arange the messages 
-        // localStorage.setItem(
-        //     "messages",
-        //     JSON.stringify(updatedMessages.reverse())
-            
-        // );
-        // setMessages(updatedMessages);
-
-        // here stop localStorage service
+        
 
         // here start Database service
 

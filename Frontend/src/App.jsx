@@ -4,10 +4,12 @@ import AboutMainPage from "./About/AboutMain";
 import ContactMainPage from './Contact/ContactMain'
 import SkillMainPage from "./Skills/SkillMainPage";
 import PageNotFound from "./PageNotFound";
+import {Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <BrowserRouter>
+    <Toaster/>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/about" element={<AboutMainPage />} />

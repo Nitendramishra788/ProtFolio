@@ -9,6 +9,8 @@ import {
 }
   from "../services/SkillService";
 
+  import toast from "react-hot-toast";
+
 import { useNavigate } from "react-router-dom";
 
 function SkillList() {
@@ -17,14 +19,7 @@ function SkillList() {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
 
-  //   // const data =
-  //   //   JSON.parse(localStorage.getItem("skills")) || [];
-
-  //   // setSkills(data);
-
-  // }, []);
 
 
   // new DB connection
@@ -52,18 +47,7 @@ function SkillList() {
 
   }, []);
 
-  // const handleDelete = (index) => {
-
-  //   const updated =
-  //     skills.filter((_, i) => i !== index);
-
-  //   setSkills(updated);
-
-  //   localStorage.setItem(
-  //     "skills",
-  //     JSON.stringify(updated)
-  //   );
-  // };
+ 
 
 
   // after DB connection 
@@ -85,9 +69,10 @@ function SkillList() {
           )
 
         );
+         toast.success("Skill deleted successfully")
 
       } catch (error) {
-
+        toast.error("Failed to delete skill");
         console.log(error);
 
       }

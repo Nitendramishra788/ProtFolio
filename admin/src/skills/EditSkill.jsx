@@ -5,6 +5,8 @@ import React, {
 
 import axios from "axios";
 
+import toast from "react-hot-toast";
+
 import {
   updateSkill
 }
@@ -113,24 +115,7 @@ function EditSkill() {
 
   };
 
-  // const handleSubmit = (e) => {
-
-  //   e.preventDefault();
-
-  //   const data =
-  //     JSON.parse(localStorage.getItem("skills")) || [];
-
-  //   data[id] = skill;
-
-  //   localStorage.setItem(
-  //     "skills",
-  //     JSON.stringify(data)
-  //   );
-
-  //   alert("Skill Updated ✅");
-
-  //   navigate("/admin/skills");
-  // };
+ 
 
   const handleSubmit =
     async (e) => {
@@ -168,12 +153,13 @@ function EditSkill() {
           token
         );
 
-        alert("Skill Updated ");
+        // alert("Skill Updated ");
+        toast.success("skill updated successfully");
 
         navigate("/admin/skills");
 
       } catch (error) {
-
+        toast.error("Failed to update skill");
         console.log(error);
 
       }

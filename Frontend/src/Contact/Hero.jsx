@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-
+import toast from "react-hot-toast";
 function Hero() {
 
   const [formData, setFormData] = useState({
@@ -33,7 +33,8 @@ function Hero() {
 
       );
 
-      alert(data.message);
+      // alert(data.message);
+      toast.success("Your message sended.!")
 
       // clear data
 
@@ -48,9 +49,10 @@ function Hero() {
     } catch (error) {
       console.log(error);
 
-      alert(
-        "Failed to send message"
-      );
+      // alert(
+      //   "Failed to send message"
+      // );
+      toast.error( "Failed to send message");
     }
   }
 

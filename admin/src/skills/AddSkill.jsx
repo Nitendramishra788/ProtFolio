@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 import { useNavigate } from "react-router-dom";
 import {
@@ -80,12 +81,13 @@ async (e) => {
       token
     );
 
-    alert("Skill Added ");
+   
+    toast.success("skill created succesfull");
 
     navigate("/admin/skills");
 
   } catch (error) {
-
+    toast.error("Failed to created skill");
     console.log(error);
 
   }
