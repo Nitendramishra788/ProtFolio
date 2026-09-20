@@ -36,7 +36,7 @@ function ProjectSection() {
         {projects.map((item) => (
           <div className="col-lg-4 col-md-6 col-12 mb-4" key={item._id}>
             <div className="project-card">
-              <img src={`http://localhost:3000/uploads/${item.image}`} alt="project" />
+              <img src={item.image} alt="project" />
               <h5>{item.title}</h5>
               <p>{item.description}</p>
 

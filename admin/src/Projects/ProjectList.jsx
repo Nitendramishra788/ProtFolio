@@ -92,7 +92,7 @@ async (id) => {
           <div className="project-card" key={item._id}>
 
             <img
-              src={`http://localhost:3000/uploads/${item.image}`}
+              src={item.image}
               alt="project"
               className="project-image"
             />

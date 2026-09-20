@@ -1,5 +1,6 @@
 const Project = require("../models/project");
 const asyncHandler = require("../middlewares/asyncHandler");
+const {uploadToCloudinary} = require("../utils/cloudinaryService");
 
 // create project 
 
@@ -15,8 +16,15 @@ const CreateProject = asyncHandler(
 
         } = req.body;
 
-        // upload image
-        const image = req.file.filename;
+        // // upload image
+        
+        let image =null;
+
+        if(req.file){
+            const result = await uploadToCloudinary(req.file.buffer);
+            image = result.secure_url;
+        };
+
 
         const project = await Project.create({
             image,
@@ -92,13 +100,20 @@ const updatedProject = asyncHandler(
 
         // update project
 
-        if (req.file) {
-            project.image = req.file.filename;
-        }
+        let image =null;
+        if(req.file){
+            const result = await uploadToCloudinary(req.file.buffer);
+            image = result.secure_url;
+        };
 
         //    project.image = req.body.image || project.image;
         project.title = req.body.title || project.title;
         project.description = req.body.description || project.description;
+
+         if (image) {
+            project.image = image;
+        };
+
         project.live = req.body.live || project.live;
         project.code = req.body.code || project.code;
 
@@ -108,7 +123,7 @@ const updatedProject = asyncHandler(
         res.status(200).json({
             success: true,
             message: "Project updated successfully",
-            project: updatedProject,
+            project: project,
         });
     }
 );
